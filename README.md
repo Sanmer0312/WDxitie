@@ -1,5 +1,7 @@
 # weidou
 
+在线预览(https://sanmer0312.github.io/WDxitie/dist/index.html#/home)
+
 ## Project setup
 ```
 npm install
