@@ -2,7 +2,7 @@
   <div id="app">
     <xitieNav />
     <router-view />
-    <xitieFooter :scrollheight="scrollheight" />
+    <xitieFooter />
   </div>
 </template>
 
@@ -16,13 +16,9 @@ import xitieFooter from "@/components/xitie-footer.vue";
 
 export default {
   data() {
-    return {
-      scrollheight: document.body.scrollHeight,
-    };
+    return {};
   },
-  updated: function () {
-    this.scrollheight = document.body.scrollHeight;
-  },
+  updated: function () {},
   components: {
     xitieNav,
     xitieFooter,

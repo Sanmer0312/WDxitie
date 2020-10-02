@@ -1,33 +1,51 @@
 <template>
   <main>
     <ul class="make-list">
-      <li v-for="value in makeList" :style="value.time" :class="{active:value.active}">
+      <li
+        v-for="value in makeList"
+        :style="value.time"
+        :class="{ active: value.active }"
+      >
         <img :src="value.imgSrc" alt="图片加载失败" />
-        <span>{{value.tip}}</span>
-        <a href="javascript:;" class="button">{{value.action}}</a>
+        <span>{{ value.tip }}</span>
+        <a href="javascript:;" class="button">{{ value.action }}</a>
       </li>
     </ul>
-    <img :src="logoImg" :class="{logoActive:logoActive}" alt="图片加载失败" id="logo" />
-    <p>维斗喜帖网是一个微场景应用开发平台，我们通过简单直观的操作步骤，丰富多样的模版，为广大客户提供各方面的微应用，包括电子喜帖，微邀请，微相册，微杂志，微网站，企业微场景等。</p>
+    <img
+      :src="logoImg"
+      :class="{ logoActive: logoActive }"
+      alt="图片加载失败"
+      id="logo"
+    />
+    <p>
+      维斗喜帖网是一个微场景应用开发平台，我们通过简单直观的操作步骤，丰富多样的模版，为广大客户提供各方面的微应用，包括电子喜帖，微邀请，微相册，微杂志，微网站，企业微场景等。
+    </p>
     <span>
       <strong>制作个人应用：</strong>结婚、生日宴、活动Party、个人相册。
     </span>
     <span>
-      <strong>制作商务英语：</strong>产品宣传、店庆、品牌/形象展示、活动邀请、合作代理、公共号接通微场景。
+      <strong>制作商务英语：</strong
+      >产品宣传、店庆、品牌/形象展示、活动邀请、合作代理、公共号接通微场景。
     </span>
     <ul class="feature-list">
-      <li v-for="value in featureList" :style="value.time" :class="{active:value.active}">
+      <li
+        v-for="value in featureList"
+        :style="value.time"
+        :class="{ active: value.active }"
+      >
         <img :src="value.imgSrc" alt="图片加载失败" />
-        <strong>{{value.title}}</strong>
-        <p>{{value.tip}}</p>
+        <strong>{{ value.title }}</strong>
+        <p>{{ value.tip }}</p>
       </li>
     </ul>
     <div class="How-to-make-box">
-      <strong :class="{strongActive:strongActive}">如何制作</strong>
+      <strong :class="{ strongActive: strongActive }">如何制作</strong>
       <p>你只需要准备相关的素材（文章／图片／设计），选择合适的背景音乐；</p>
-      <p>在模板中挑选一个中意的喜帖模板，免注册，三步完成制作，过程不到5分钟。</p>
+      <p>
+        在模板中挑选一个中意的喜帖模板，免注册，三步完成制作，过程不到5分钟。
+      </p>
       <a href="javascript:;" class="button">查看教程</a>
-      <div class="bottom" :class="{active:bottomActive}">
+      <div class="bottom" :class="{ active: bottomActive }">
         <img
           src="../images/chrome-top-5dcc44820f09d67d48fb0e8b1aa290bc7cfbbcc32ff97b7881966ba5dccb1d1b.png"
           alt="图片加载失败"
@@ -131,71 +149,65 @@ export default {
       ],
       strongActive: false,
       bottomActive: false,
-      screenWidth: document.body.clientWidth,
-      socrlltop:
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        window.pageYOffset,
+      clients:
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight,
     };
   },
   mounted: function () {
-    window.addEventListener("scroll", this.appScroll);
-  },
-  methods: {
-    appScroll() {
-      this.socrlltop =
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        window.pageYOffset;
-    },
-  },
-  watch: {
-    socrlltop: function () {
-      if (this.screenWidth > 992) {
-        this.socrlltop < 300 ||
-          this.makeList.forEach((element) => {
-            element.active = true;
-          });
-        this.socrlltop < 500 || (this.logoActive = true);
-        this.socrlltop < 936 ||
-          this.featureList.forEach((element) => {
-            element.active = true;
-          });
-        this.socrlltop < 1130 || (this.strongActive = true);
-        this.socrlltop < 1680 || (this.bottomActive = true);
-      } else if (this.screenWidth <= 992 && this.screenWidth > 768) {
-        this.socrlltop < 300 ||
-          this.makeList.forEach((element, index) => {
-            index <= 1 && (element.active = true);
-          });
-        this.socrlltop < 560 ||
-          this.makeList.forEach((element, index) => {
-            index > 1 && (element.active = true);
-          });
-        this.socrlltop < 760 || (this.logoActive = true);
-        this.socrlltop < 1200 ||
-          this.featureList.forEach((element, index) => {
-            index <= 1 && (element.active = true);
-          });
-        this.socrlltop < 1444 ||
-          this.featureList.forEach((element, index) => {
-            index > 1 && (element.active = true);
-          });
-        this.socrlltop < 1620 || (this.strongActive = true);
-        this.socrlltop < 2300 || (this.bottomActive = true);
+    const that = this;
+    const makeListChildren = document.getElementsByClassName("make-list")[0]
+      .childNodes;
+    const featureListChildren = document.getElementsByClassName(
+      "feature-list"
+    )[0].childNodes;
+    window.addEventListener("scroll", function () {
+      makeListChildren.forEach((element, index) => {
+        if (element.getBoundingClientRect().top <= that.clients - 100) {
+          that.makeList[index].active = true;
+        } else {
+          that.makeList[index].active = false;
+        }
+      });
+      if (
+        document.getElementById("logo").getBoundingClientRect().top <=
+        that.clients - 100
+      ) {
+        that.logoActive = true;
       } else {
-        this.socrlltop < 268 || (this.makeList[0].active = true);
-        this.socrlltop < 560 || (this.makeList[1].active = true);
-        this.socrlltop < 800 || (this.makeList[2].active = true);
-        this.socrlltop < 1060 || (this.makeList[3].active = true);
-        this.socrlltop < 1200 || (this.logoActive = true);
-        this.socrlltop < 1660 || (this.featureList[0].active = true);
-        this.socrlltop < 1940 || (this.featureList[1].active = true);
-        this.socrlltop < 2180 || (this.featureList[2].active = true);
-        this.socrlltop < 2300 || (this.featureList[3].active = true);
+        that.logoActive = false;
       }
-    },
+      featureListChildren.forEach((element, index) => {
+        if (element.getBoundingClientRect().top <= that.clients - 100) {
+          that.featureList[index].active = true;
+        } else {
+          that.featureList[index].active = false;
+        }
+      });
+      if (
+        document
+          .getElementsByClassName("How-to-make-box")[0]
+          .firstElementChild.getBoundingClientRect().top <=
+        that.clients - 100
+      ) {
+        that.strongActive = true;
+      } else {
+        that.strongActive = false;
+      }
+      if (
+        document.getElementsByClassName("bottom")[0].getBoundingClientRect()
+          .top <=
+        that.clients - 100
+      ) {
+        that.bottomActive = true;
+      } else {
+        that.bottomActive = false;
+      }
+    });
   },
+  methods: {},
+  watch: {},
 };
 </script>
 

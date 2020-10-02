@@ -18,9 +18,7 @@
             <br />
             <input type="password" id="user-password" />
             <br />
-            <button type="submit">
-              <i></i>登录
-            </button>
+            <button type="submit"><i></i>登录</button>
           </form>
         </div>
       </div>
@@ -35,7 +33,7 @@
             <button type="submit">登 录</button>
           </form>
           <ul class="tips-list">
-            <li v-for="value in tipsList">{{value}}</li>
+            <li v-for="value in tipsList">{{ value }}</li>
           </ul>
         </div>
       </div>
@@ -46,7 +44,7 @@
         <a href="#/enrolment" class="button">新用户注册</a>
         <br />
         <p v-for="value in enrolmentAList" class="link">
-          <a :href="value.path">{{value.value}}</a>
+          <a :href="value.path">{{ value.value }}</a>
         </p>
         <p>联系客服:</p>
         <a v-for="src in kfList" href="javascript:;">
@@ -368,9 +366,14 @@ export default {
   }
   .login .login-left .login-left-top-left {
     width: 90%;
+    padding: 0;
+    margin: 0 auto;
   }
   .login .login-left .login-left-top-left a:nth-child(1) {
-    margin-right: 0;
+    margin-right: 0.5em;
+  }
+  .login .login-left .login-left-top-left a img {
+    height: 2.2em;
   }
 }
 </style>

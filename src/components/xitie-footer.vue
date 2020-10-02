@@ -4,10 +4,10 @@
       <img
         src="../images/qrcode-wedxt-72fe105beceb68a96c3c74a201c4957b6a875cddba5a4ae974b95b6e5ee46ca8.jpg"
         alt="图片加载失败"
-        :class="{QRcodeActive:QRcodeActive}"
+        :class="{ QRcodeActive: QRcodeActive }"
       />
       <br />
-      <span :class="{QRcodeActive:QRcodeActive}">
+      <span :class="{ QRcodeActive: QRcodeActive }">
         关注微信公众号：
         <a href="javascript:;">[维斗喜帖]</a>
       </span>
@@ -21,9 +21,7 @@
       <span>
         <strong>地址：</strong>成都市二环路东二段龙湖三千星座A座2801号&nbsp;
       </span>
-      <span>
-        <strong>邮编:</strong>610000
-      </span>
+      <span> <strong>邮编:</strong>610000 </span>
     </div>
     <div class="p-box">
       <span>©维斗喜帖-版权所有.</span>
@@ -45,44 +43,27 @@ export default {
   data() {
     return {
       QRcodeActive: false,
-      screenWidth: document.body.clientWidth,
-      scrolltop:
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        window.pageYOffset,
-      socrllheight: Number,
+      clients:
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight,
     };
   },
-  props: {
-    scrollheight: {
-      type: Number,
-    },
-  },
+  props: {},
   mounted: function () {
-    window.addEventListener("scroll", this.appScroll);
-  },
-  methods: {
-    appScroll() {
-      this.scrolltop =
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        window.pageYOffset;
-    },
-  },
-  watch: {
-    scrolltop: function () {
-      console.log(this.scrolltop);
-      console.log(this.scrollheight);
-      if (this.screenWidth > 992) {
-        this.scrolltop < 2210 || (this.QRcodeActive = true);
-      } else if (this.screenWidth <= 992 && this.screenWidth > 768) {
-        this.scrolltop < 2660 || (this.QRcodeActive = true);
+    const QRcodeBox = document.getElementsByClassName("QRcode-box")[0];
+    const that = this;
+    window.addEventListener("scroll", function () {
+      let QRcodeTop = QRcodeBox.getBoundingClientRect().top;
+      if (QRcodeTop <= that.clients - 100) {
+        that.QRcodeActive = true;
       } else {
-        this.scrolltop < 2660 || (this.QRcodeActive = true);
+        that.QRcodeActive = false;
       }
-      // this.scrolltop < this.scrollheight || (this.QRcodeActive = true);
-    },
+    });
   },
+  methods: {},
+  watch: {},
 };
 </script>
 
@@ -104,22 +85,13 @@ footer .QRcode-box {
 footer .QRcode-box img,
 footer .QRcode-box span {
   position: relative;
-  top: 0;
-  opacity: 1;
+  top: 4em;
+  opacity: 0;
   transition: all 1s;
 }
-.QRcodeActive {
-  animation: QRcodeActive 1s;
-}
-@keyframes QRcodeActive {
-  from {
-    top: 4em;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
+footer .QRcode-box .QRcodeActive {
+  top: 0;
+  opacity: 1;
 }
 footer .QRcode-box span {
   display: inline-block;
