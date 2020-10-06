@@ -1,7 +1,7 @@
 <template>
   <div class="teach">
     <div class="video-teach">
-      <router-link to="video"><i></i> 点击这里观看视频教程</router-link>
+      <router-link to="/video"><i></i> 点击这里观看视频教程</router-link>
       <a href="javascript:;" id="close">x</a>
     </div>
     <transition-group name="teach-list" tag="ul" class="teach-list">

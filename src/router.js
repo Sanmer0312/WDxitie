@@ -6,6 +6,7 @@ import login from "./views/login.vue";
 import xitieCase from "./views/case.vue";
 import error from "./views/404.vue";
 import teach from "./views/teach.vue";
+import xitieVideo from "./views/video.vue";
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ export default new Router({
       path: "/teach",
       name: "teach",
       component: teach
+    },
+    {
+      path: "/video",
+      name: "xitie-video",
+      component: xitieVideo
     }
   ]
 });
